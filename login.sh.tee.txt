@@ -1,0 +1,61 @@
+!/bin/bash
+
+if [ ! -d ~/login.log ]; then 
+    mkdir ~/login.log;
+fi
+
+_NFILE=$(echo login.log/$(date +'%Y-%m-%d_%H-%M-%S').update)
+
+touch $($_NFILE)
+
+echo "" | tee -a $_NFILE
+echo "#########################"  | tee -a $_NFILE
+echo " system information  " | tee -a $_NFILE
+echo "#########################"  | tee -a $_NFILE
+{ date; hostnamectl ; } | tee -a  $_NFILE
+
+echo "" | tee -a $_NFILE
+echo "#########################"  | tee -a $_NFILE
+echo "Network Information  " | tee -a $_NFILE
+echo "#########################" | tee -a $_NFILE
+{ ip a | grep "inet " ; ip -br add; } | tee -a $_NFILE
+
+
+echo "" | tee -a $_NFILE
+echo "#########################" | tee -a $_NFILE
+echo "User Informaition  " | tee -a $_NFILE
+echo "#########################"  | tee -a $_NFILE
+{ id ; whoami ; w; } | tee -a $_NFILE
+
+
+echo "" | tee -a $_NFILE
+echo "####################" | tee -a $_NFILE
+echo " Storage Informaition" | tee -a $_NFILE
+echo "#####################" | tee -a $_NFILE
+{ df ; } | tee -a $_NFILE
+ 
+echo "" | tee -a $_NFILE
+echo "#########################" | tee -a $_NFILE
+echo " Checking  Update files  " | tee -a $_NFILE
+echo "#########################"| tee -a $_NFILE
+
+apt-get update | tee -a $_NFILE
+echo "" | tee -a $_NFILE
+echo "###########################" | tee -a $_NFILE
+echo " Checking available upgrade" | tee -a $_NFILE
+echo "###########################" | tee -a $_NFILE
+
+
+apt-get upgrade -y  | tee -a $_NFILE
+echo "" | tee -a $_NFILE
+echo "#######################################" | tee -a $_NFILE
+echo " Checking available Upgrades to programs" | tee -a $_NFILE
+echo "#######################################" | tee -a $_NFILE
+
+apt-get dist-upgrade -y  | tee -a $_NFILE
+echo ""
+echo "#####################################################################"
+echo " DONE and log is backup to the file $_NFILE  "
+echo "#####################################################################"
+
+

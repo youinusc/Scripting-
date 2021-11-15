@@ -1,0 +1,113 @@
+#!/bin/bash
+
+if [ ! -d ~/login.log ]; then 
+    mkdir ~/login.log;
+fi
+
+touch $(echo login.log/$(date +'%Y-%m-%d_%H-%M-%S').update)
+
+_NFILE=$(echo login.log/$(date +'%Y-%m-%d_%H-%M-%S').update)
+
+
+echo ""
+echo "#########################"
+echo " system information  "
+echo "#########################"
+
+echo ""
+echo "#########################" >> $_NFILE
+echo " system information  " >> $_NFILE
+echo "#########################" >> $_NFILE
+
+{ date; hostnamectl ; }  >> $_NFILE
+
+{ date; hostnamectl ; }
+
+echo ""
+echo "#########################"
+echo "Network Information  "
+echo "#########################"
+
+
+echo ""
+echo "#########################" >> $_NFILE
+echo "Network Information  " >> $_NFILE
+echo "#########################" >> $_NFILE
+
+
+{ ip a | grep "inet " ; ifconfig | grep "inet "; } >>$_NFILE
+
+{ ip a | grep "inet " ; ifconfig | grep "inet "; }
+
+
+echo ""
+echo "#########################"
+echo "User Information  "
+echo "#########################"
+
+echo ""
+echo "#########################" >> $_NFILE
+echo "User Informaition  " >> $_NFILE
+echo "#########################"  >> $_NFILE
+
+{ id ; whoami ; w; }  >> $_NFILE
+
+{ id;  whoami ; w; }  
+cho ""
+echo "#######################################"
+echo " Storage Information"
+echo "#######################################"
+
+echo ""
+echo "#######################################" >> $_NFILE
+echo " Storage Informaition" >> $_NFILE
+echo "#######################################" >> $_NFILE
+
+{ df ; }   >> $_NFILE 
+
+{ df ; }  
+
+echo "#########################" >> $_NFILE
+echo " Checking  Update files  " >> $_NFILE
+echo "#########################" >> $_NFILE
+
+
+echo ""
+echo "#########################"
+echo " Checking  Update files  "
+echo "#########################"
+apt-get update >> $_NFILE
+
+echo ""
+echo "#########################" >> $_NFILE
+echo " Checking available upgrade" >> $_NFILE
+echo "#########################" >> $_NFILE
+
+
+echo ""
+echo "#########################"
+echo " Checking available upgrade  "
+echo "#########################"
+
+
+apt-get upgrade -y  >> $_NFILE
+
+
+
+echo ""
+echo "#######################################" >> $_NFILE
+echo " Checking available Upgrades to programs" >> $_NFILE
+echo "#######################################" >> $_NFILE
+
+echo ""
+echo "#######################################"
+echo " Checking available Upgrades to programs"
+echo "#######################################"
+
+
+apt-get dist-upgrade -y  >> $_NFILE
+
+
+
+
+echo ""
